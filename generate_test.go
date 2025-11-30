@@ -16,17 +16,21 @@ func TestGenerate(t *testing.T) {
 	fakeFiles := []string{
 		"src/components/Button.tsx",
 		"src/components/form/Field.tsx",
+		"src/components/style/color.ts",
+		"src/components/style/variant.ts",
 		"src/pages/Home.tsx",
 	}
 	expectedIndexes := []string{
 		"src/components/index.ts",
 		"src/components/form/index.ts",
+		"src/components/style/index.ts",
 		"src/pages/index.ts",
 	}
 	expectedIndexContent := map[string]string{
-		"src/components/index.ts":      "export { Button } from './Button.tsx'\n",
-		"src/components/form/index.ts": "export { Field } from './Field.tsx'\n",
-		"src/pages/index.ts":           "export { Home } from './Home.tsx'\n",
+		"src/components/index.ts":       "export { Button } from './Button.tsx'\n",
+		"src/components/form/index.ts":  "export { Field } from './Field.tsx'\n",
+		"src/components/style/index.ts": "export * from './color.ts'\nexport * from './variant.ts'\n",
+		"src/pages/index.ts":            "export { Home } from './Home.tsx'\n",
 	}
 	// Create the config file
 	{
@@ -36,12 +40,17 @@ func TestGenerate(t *testing.T) {
 			Options: []option{
 				{
 					Dir:       "src/components",
-					Export:    "single",
+					Export:    exportSingle,
 					Recursive: true,
 				},
 				{
+					Dir:       "src/components/style",
+					Export:    exportAll,
+					Recursive: false,
+				},
+				{
 					Dir:       "src/pages",
-					Export:    "single",
+					Export:    exportSingle,
 					Recursive: true,
 				},
 			},

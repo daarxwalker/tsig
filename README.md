@@ -7,7 +7,8 @@ go install github.com/daarxwalker/tsig@latest
 ```
 
 ## Config
-> default config filename tsig.json
+- default config filename tsig.json
+- subdir can have different option
 ```json
 {
     "root": "../",
@@ -16,6 +17,11 @@ go install github.com/daarxwalker/tsig@latest
             "dir": "src/components",
             "export": "single",
             "recursive": true
+        },
+        {
+            "dir": "src/components/style",
+            "export": "all",
+            "recursive": false
         }
     ]
 }

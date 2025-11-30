@@ -8,6 +8,7 @@ import (
 
 func generate(cfg *config) ([]string, error) {
 	result := make([]string, 0)
+	excludedDirs := createExcludedDirs(cfg)
 	for _, opt := range cfg.Options {
 		dir := filepath.Join(cfg.Root, opt.Dir)
 		if walkErr := filepath.WalkDir(
@@ -16,7 +17,7 @@ func generate(cfg *config) ([]string, error) {
 				if !entry.IsDir() || path != dir {
 					return nil
 				}
-				generatedIndexes, createIndexErr := writeIndex(path, opt.Export, opt.Recursive)
+				generatedIndexes, createIndexErr := writeIndex(path, opt.Export, opt.Recursive, excludedDirs)
 				if createIndexErr != nil {
 					return fmt.Errorf("create index: %w", createIndexErr)
 				}

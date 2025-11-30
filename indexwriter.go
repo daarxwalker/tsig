@@ -5,10 +5,11 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 )
 
-func writeIndex(dir string, export export, recursive bool) ([]string, error) {
+func writeIndex(dir string, export export, recursive bool, excludedDirs []string) ([]string, error) {
 	result := make([]string, 0)
 	b := new(strings.Builder)
 	if walkErr := filepath.WalkDir(
@@ -18,7 +19,10 @@ func writeIndex(dir string, export export, recursive bool) ([]string, error) {
 				return nil
 			}
 			if entry.IsDir() && recursive {
-				subresult, writeErr := writeIndex(path, export, recursive)
+				if len(excludedDirs) > 0 && slices.Contains(excludedDirs, path) {
+					return nil
+				}
+				subresult, writeErr := writeIndex(path, export, recursive, excludedDirs)
 				if writeErr != nil {
 					return writeErr
 				}
