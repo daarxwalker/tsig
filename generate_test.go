@@ -69,6 +69,7 @@ func TestGenerate(t *testing.T) {
 	require.NoError(t, parseCfgErr)
 	result, generateErr := generate(cfg)
 	require.NoError(t, generateErr)
+	require.Equal(t, len(expectedIndexes), len(result))
 	for _, expectedIndexPath := range expectedIndexes {
 		path := filepath.Join(root, expectedIndexPath)
 		require.Contains(t, result, path)

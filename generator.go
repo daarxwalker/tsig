@@ -16,17 +16,16 @@ func generate(cfg *config) ([]string, error) {
 				if !entry.IsDir() || path != dir {
 					return nil
 				}
-				subresult, createIndexErr := writeIndex(path, opt.Export, opt.Recursive)
+				generatedIndexes, createIndexErr := writeIndex(path, opt.Export, opt.Recursive)
 				if createIndexErr != nil {
 					return fmt.Errorf("create index: %w", createIndexErr)
 				}
-				result = append(result, subresult...)
+				result = append(result, generatedIndexes...)
 				return nil
 			},
 		); walkErr != nil {
 			return nil, fmt.Errorf("walk dir %s: %w", dir, walkErr)
 		}
-		result = append(result, filepath.Join(dir, indexFilename))
 	}
 	return result, nil
 }

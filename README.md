@@ -10,13 +10,14 @@ go install github.com/daarxwalker/tsig@latest
 > default config filename tsig.json
 ```json
 {
-	"options": [
-		{
-			"dir": "src/components",
-			"export": "single",
-			"recursive": true
-		}
-	]
+    "root": "../",
+    "options": [
+        {
+            "dir": "src/components",
+            "export": "single",
+            "recursive": true
+        }
+    ]
 }
 ```
 
