@@ -3,7 +3,7 @@
 
 ## Install
 ```bash
-    go install github.com/daarxwalker/tsig@latest
+go install github.com/daarxwalker/tsig@latest
 ```
 
 ## Config
@@ -23,9 +23,9 @@
 ## Usage
 ### Default
 ```bash
-    tsig
+tsig
 ```
 ### With a custom config path
 ```bash
-    tsig -config=tsig.json
+tsig -config=tsig.json
 ```
