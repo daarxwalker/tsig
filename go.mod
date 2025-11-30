@@ -1,4 +1,4 @@
-module gtihub.com/daarxwalker/tsig
+module github.com/daarxwalker/tsig
 
 go 1.25
 
